@@ -99,7 +99,7 @@ for(...){// здесь пусто}
 
     // Task 6
     
-    function TransLit($input): string
+    function TransLit($input)
     {
         $alfa = array (' ' => '_',  'A' =>'a','Б' =>'b','В' =>'v','Г' =>'g','Д' =>'d','Е' =>'e','Ё' =>'e','Ж' =>'zh','З' =>'z','И' =>'i','Й' =>'i'
         ,'К' =>'k','Л' =>'l','М' =>'m','Н' =>'n','О' =>'o','П' =>'p','Р' =>'r','С' =>'s','Т' =>'t','У' =>'u','Ф' =>'f'
@@ -109,6 +109,8 @@ for(...){// здесь пусто}
         $russian_alfa = array_merge($russian_alfa, array_map("mb_strtolower", $russian_alfa));
         $english_alfa = array_values($alfa);
         $english_alfa = array_merge($english_alfa, $english_alfa);
+        var_dump($russian_alfa);
+        var_dump($english_alfa);
         return str_ireplace($russian_alfa, $english_alfa, $input);
     }
         echo TransLit("Пушкин написал бессмертные вещи" . "<br/>");
