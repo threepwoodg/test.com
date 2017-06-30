@@ -62,7 +62,7 @@ else
 
 ?>
 <form method="post">
-    <input type="text" name="a" />
+    <input type="text" name="a"/>
     <select name="operation">
         <option value="1">+</option>
         <option value="2">-</option>
