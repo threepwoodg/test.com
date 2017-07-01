@@ -54,23 +54,53 @@ function mathOperation($x, $y, $operation)
 	}
 	return $result;
 }
-
-
-if(isset($_POST['a']) && isset($_POST['b'])) $result = mathOperation($_POST['a'], $_POST['b'],$_POST['operation']);
-else
-	$result = "";
-
 ?>
+
+<h3>Task 2</h3>
+
+<?php
+
+if(isset($_POST['a']) && isset($_POST['b']))
+    $res_task2 = mathOperation($_POST['a'], $_POST['b'],$_POST['operation']);
+else
+	$res_task2 = "";
+?>
+
 <form method="post">
-    <input type="text" name="a"/>
+    <input type="number" name="a" placeholder="Введите значение a" required />
     <select name="operation">
         <option value="1">+</option>
         <option value="2">-</option>
         <option value="3">/</option>
         <option value="4">*</option>
     </select>
-    <input type="text" name="b" /> <input type="submit" value="=" /> <?php echo $result; ?>
-
-
+    <input type="number" name="b" placeholder="Введите значение b" required />
+    <input type="submit" value="=" /> <?php echo $res_task2;?>
+    
+    
+    <h3>Task 3</h3>
+    
+    <?php if(isset($_POST['c']) && isset($_POST['d'])) {
+	    foreach ($_POST as $k => $v) {
+		    if ($k == 'SUM') $res_task3 = mathOperation($_POST['c'], $_POST['d'], SUM);
+            elseif ($k == 'MIN') $res_task3 = mathOperation($_POST['c'], $_POST['d'], MIN);
+            elseif ($k == 'DIV') $res_task3 = mathOperation($_POST['c'], $_POST['d'], DIV);
+            elseif ($k == 'MUL') $res_task3 = mathOperation($_POST['c'], $_POST['d'], MUL);
+	    }
+    }
+    else
+    $res_task3 = "";
+    ?>
+    
+    <form method="post">
+        <input type="number" name="c" placeholder="Введите значение c" required />
+        <input type="number" name="d" placeholder="Введите значение d" required /> =
+        <?php echo $res_task3;?> <br/>
+        <input type="submit" name="SUM" value="+" />
+	    <input type="submit" name="MIN" value="-" />
+        <input type="submit" name="DIV" value="/" />
+        <input type="submit" name="MUL" value="*" />
+        
+    
 </body>
 </html>
