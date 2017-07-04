@@ -22,8 +22,7 @@ function Minus ($x, $y)
 	return $x - $y;
 }
 
-function Division ($x, $y)
-{
+function Division ($x, $y){
 	if($y == 0) $result="На ноль делтить нельзя!";
 	else $result=$x/$y;
 	return $result;
@@ -34,11 +33,9 @@ function Multiplication ($x, $y)
 	return $x * $y;
 }
 
-function mathOperation($x, $y, $operation)
-{
+function mathOperation($x, $y, $operation){
 	$result = $operation;
-	switch ($result)
-	{
+	switch ($result) {
 		case SUM:
 			echo $result = Plus($x, $y);
 			break;
