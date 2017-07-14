@@ -11,7 +11,7 @@ if (isset($_POST["username"])) {
 	session_start();
 	$_SESSION['username'] = $_POST['username'];
 	if (isset($_POST["remember"])){
-	    setcookie("username",$_SESSION["username"],time()+3600);
+	    setcookie("username",$_POST["username"],time()+3600);
     }
     if (isset($_POST["reset"])){
         unset($_SESSION["username"]);
@@ -34,7 +34,5 @@ if (isset($_POST["username"])) {
 		<input type="submit">
         Reset<input type="checkbox" name="reset" value="1">
 	</form>
-	
-	
 	</body>
 </html>

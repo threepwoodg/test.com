@@ -6,15 +6,14 @@
  * Time: 15:58
  */
 
-include_once "./index.php.php"
+include_once "./index.php"
 
 ?>
-<<html>
+<html>
 <head>
     <title>Page B</title>
 </head>
 <body>
     <h3>Page B</h3>
-    <p>Hello, <?php $_SESSION["username"] ?></p>
 </body>
 </html>
