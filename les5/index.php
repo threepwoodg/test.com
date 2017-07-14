@@ -12,21 +12,22 @@ if ((!isset($_SESSION["username"]))&&(!isset($_COOKIE["username"])))
 {
 	header("Location: ./login.php");
 }
+if (!isset($_SESSION["username"])){
+    $_SESSION["username"] = $_COOKIE["username"];
+}
+
 else echo "Hello, " . $_SESSION["username"];
 
 
 var_dump($_SESSION);
 var_dump($_COOKIE);
-var_dump($_POST);
-
-/*if (isset($_POST["reset"])){
-	unset($_SESSION["username"]);
-	unset($_COOKIE["username"]);
-	session_destroy();
-}*/
 
 ?>
-
-<!--<form method="post" action="index.php">
-	<input type="submit" name="reset" value="Reset">
-</form>-->
+<!--<html>
+<body>
+<form method="post" action="index.php">
+    <input type="checkbox" name="reset" value="1">
+    <input type="submit">
+</form>
+</body>
+</html>-->

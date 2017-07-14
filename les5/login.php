@@ -11,7 +11,11 @@ if (isset($_POST["username"])) {
 	session_start();
 	$_SESSION['username'] = $_POST['username'];
 	if (isset($_POST["remember"])){
-	    $_COOKIE["username"] = $_POST["username"];
+	    setcookie("username",$_SESSION["username"],time()+3600);
+    }
+    if (isset($_POST["reset"])){
+        unset($_SESSION["username"]);
+        setcookie("username","",time()-3600);
     }
 	header("Location: ./index.php");
 }
@@ -28,6 +32,7 @@ if (isset($_POST["username"])) {
 		<input type="text" name="username"><br>
         Remember me:<input type="checkbox" name="remember" value="1"><br>
 		<input type="submit">
+        Reset<input type="checkbox" name="reset" value="1">
 	</form>
 	
 	
