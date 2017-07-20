@@ -5,7 +5,7 @@
 <h2>Какое-то описание картинки</h2>
 <?php
 for($i = 1; $i <= 16; $i++)
-	echo "<a href = photo.php?id=$i >Картинка No$i</a><br/>";
+	echo "<a href = img/{$i} >Картинка No$i</a><br/>";
 
 define('SUM', 1);
 define('MIN', 2);

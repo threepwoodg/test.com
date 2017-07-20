@@ -1,2 +1,6 @@
 RewriteEngine On
 
+Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
+
+RewriteRule ^img/([0-9]+)$ photo.php?id=$1
