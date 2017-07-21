@@ -8,6 +8,12 @@
 
 header("Content-type: text/html; charset=utf-8;");
 
+define('SQL_USERNAME','root');
+define('SQL_PASSWORD','root');
+define('SQL_HOST','localhost');
+define('SQL_PORT','8889');
+define('SQL_DB','test_db');
+
 function getGallery($path){
 	
 	$arr_files = scandir($path);
@@ -36,10 +42,21 @@ function uploadFiles($file){
 		echo "Error, select image!";
 }
 
-$f = fopen('./test.txt', 'r');
-	$c = file_get_contents('./123.txt');
-	echo $c . "<br>";
-	fclose($f);
+$link = mysqli_init();
+var_dump($link);
+
+$success = mysqli_real_connect($link, SQL_HOST, SQL_USERNAME, SQL_PASSWORD, SQL_DB, SQL_PORT);
+
+$query = mysqli_query($link,'SELECT * FROM `Users`');
+
+
+while ($row = mysqli_fetch_assoc($query)){
+    var_dump($row);
+    foreach ($row as $k => $v){
+        echo "{$k} = {$v} <br>";
+    }
+}
+
 ?>
 
 <html>
