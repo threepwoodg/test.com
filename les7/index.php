@@ -8,79 +8,65 @@
 
 header("Content-type: text/html; charset=utf-8;");
 
-define('SQL_USERNAME','rem_root');
-define('SQL_PASSWORD','rem_root');
-define('SQL_HOST','87.229.176.206');
-define('SQL_PORT','8889');
-define('SQL_DB','test_db');
+include ("./auth.php");
+include ("./gallery.php");
 
-define('PNG','image/png');
-define('JPEG','image/jpeg');
-define('JPG','image/jpg');
-
-function getGallery($path){
-	
-	$arr_files = scandir($path);
-	foreach ($arr_files as $k => $v) {
-		$files = $v;
-		if (($files != '.')&&($files != '..')){
-				echo "<a href='./img/{$v}'><img src=./img/{$v} height=150></a>";
-			}
-		}
+if (isset($_POST["reset"])){
+	unset($_SESSION["username"]);
+	setcookie("username","",time()-3600);
 }
 
-function uploadFiles($file){
-	if ($file['name'] == '') {
-		echo 'Error, file is empty!';
-		return;
-	}
-	if (($file['type'] == PNG)||($file['type'] == JPEG)||($file['type'] == JPG)) {
-			if (copy($file['tmp_name'], './img/' . $file['name']))
-				echo 'File upload!';
-			        else
-				        echo 'Error';
-		    } else
-			echo 'Error, select image!';
+if (isset($_SESSION["username"])){
+    echo "<h3>Привет, {$_SESSION["username"]}</h3>";
+	echo "<h3><a href='./users/admin.php'>Перейти к вашей галереи</a></h3>";
 }
 
-$link = mysqli_init();
-
-$success = mysqli_real_connect($link, SQL_HOST, SQL_USERNAME, SQL_PASSWORD, SQL_DB, SQL_PORT);
-
-$query = mysqli_query($link,'SELECT * FROM `Users`');
-
-while ($row = mysqli_fetch_assoc($query)){
-    foreach ($row as $k => $v){
-        echo "{$k} - {$v} <br>";
-    }
+if ((!isset($_SESSION["username"]))&&(!isset($_COOKIE["username"]))) {
+	echo "<h3>Вы не авторизировнны!</h3>";
+	echo "<a class='btn btn-primary' href=./login.php>Перейти на страницу авторизации</a>";
 }
 
 ?>
 
-<html>
-<body>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<link
-		rel="stylesheet"
-		href="./css/style.css"
-		type="text/css" />
-	<title>Gallery</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Главная страница</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
-<h2>Gallery</h2>
-	<?php
-	getGallery('./img');
-	?>
-<h3>Select and pull your image</h3>
-<form method="post" action="index.php" enctype="multipart/form-data">
-	<input type="file" name="user_image"><br>
-    <textarea name="description"></textarea>
-	<input type="submit" value="sand">
+<body>
+
+<h2>Главная страница</h2>
+
+<h3>Создай свою галлерею</h3>
+
+<h3>Пример галереи</h3>
+
+<form method="post" name="reset" action="./index.php">
+    <input class="btn btn-danger" type="submit" name="reset" value="Выйти"><br>
 </form>
-	<?php
-	
-	if (isset($_FILES['user_image'])){
-		uploadFiles($_FILES['user_image']);
-	}
-	?>
+
+<?php
+
+getGallery("./img");
+
+?>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
