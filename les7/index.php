@@ -17,8 +17,7 @@ if (isset($_POST["reset"])){
 }
 
 if (isset($_SESSION["username"])){
-    echo "<h3>Привет, {$_SESSION["username"]}</h3>";
-	echo "<h3><a href='./users/admin.php'>Перейти к вашей галереи</a></h3>";
+    header("Location: ./users/admin.php");
 }
 
 if ((!isset($_SESSION["username"]))&&(!isset($_COOKIE["username"]))) {

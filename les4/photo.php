@@ -8,6 +8,6 @@
 		<body>
 		<img src="<?php echo $id;?>.png">
 		<h2>Описание картинки <?php echo $id;?></h2>
-		<a href="../index.php"><< Назад</a>
+		<a href="../project/index.php"><< Назад</a>
 		</body>
 </html>
