@@ -6,9 +6,11 @@
  * Time: 14:20
  */
 
+var_dump($_GET);
+
 var_dump($_POST);
 
-if ($_POST["type_ne"] == "acc"){
+if (isset($_GET["main"])){
     echo    "<pre>interface GigabitEthernet0/0.{$_POST["vlan"]}
 description {$_POST["name"]} Sc.{$_POST["scala"]} ID-{$_POST["id"]} SO-{$_POST["po"]} 1C-{$_POST["1c"]}
 bandwidth {$_POST["speed"]} 
@@ -28,7 +30,7 @@ pwsignal ldp
 vsi-id {$_POST["vsi"]}
 mac-withdraw enable
 peer 10.173.224.2
-!!!! peer !!!!
+peer 10.173.224.3
 mtu 9600
 ignore-ac-state
 tnl-policy tnl_policy
@@ -48,7 +50,46 @@ trust upstream not_6_7
 trust 8021p
 statistic enable
 [agg1-Lenina244.STV]
+
+vsi id{$_POST["id"]} static
+description {$_POST["name"]} Sc.{$_POST["scala"]} ID-{$_POST["id"]} SO-{$_POST["po"]} 1C-{$_POST["1c"]}
+pwsignal ldp
+vsi-id {$_POST["vsi"]}
+mac-withdraw enable
+peer 10.173.224.1
+peer 10.173.224.3
+mtu 9600
+ignore-ac-state
+tnl-policy tnl_policy
+
+interface {$_POST["eth_trunk"]}.{$_POST["vlan"]}
+description ---### [int] {$_POST["name"]} Sc.{$_POST["scala"]} ID-{$_POST["id"]} SO-{$_POST["po"]} 1C-{$_POST["1c"]} ###---
+set flow-stat interval 30
+mtu 9600
+control-vid {$_POST["vlan"]} dot1q-termination
+dot1q termination vid {$_POST["vlan"]}
+l2 binding vsi id{$_POST["id"]}
+loop-detect enable
+loop-detect block 10
+loop-detect priority 2
+loop-detect trigger interface-down enable
+trust upstream not_6_7
+trust 8021p
+statistic enable
+[agg2-Lenina244.STV]
+
+vsi id{$_POST["id"]} static
+description {$_POST["name"]} Sc.{$_POST["scala"]} ID-{$_POST["id"]} SO-{$_POST["po"]} 1C-{$_POST["1c"]}
+pwsignal ldp
+vsi-id {$_POST["vsi"]}
+mac-withdraw enable
+peer 10.173.224.2
+peer 10.173.224.1
+mtu 9600
+tnl-policy tnl_policy
+
 </pre>";
+
 
 }
 
