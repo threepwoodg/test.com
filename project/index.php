@@ -9,10 +9,10 @@
 header("Content-type: text/html; charset=utf-8;");
 
 define('SQL_USERNAME','root');
-define('SQL_PASSWORD','root');
+define('SQL_PASSWORD','nokia');
 define('SQL_HOST','localhost');
 define('SQL_PORT','8889');
-define('SQL_DB','ne');
+define('SQL_DB','project');
 
 define('PNG','image/png');
 define('JPEG','image/jpeg');
@@ -21,6 +21,16 @@ define('JPG','image/jpg');
 $link = mysqli_init();
 
 $success = mysqli_real_connect($link, SQL_HOST, SQL_USERNAME, SQL_PASSWORD, SQL_DB, SQL_PORT);
+
+if (!$success) {
+    echo "Ошибка: Невозможно установить соединение с MySQL." . PHP_EOL;
+    echo "Код ошибки errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Текст ошибки error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+
+echo "Соединение с MySQL установлено!" . PHP_EOL;
+echo "Информация о сервере: " . mysqli_get_host_info($link) . PHP_EOL;
 
 $query = mysqli_query($link,'SELECT * FROM `ne_report`');
 ?>
